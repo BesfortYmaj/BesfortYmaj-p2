@@ -32,12 +32,32 @@ function animate() {
 
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
-function swapPhoto() {
+function swapPhoto(Next) {
 	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
-	console.log('swap photo');
+	if (Next) {
+		if (mCurrentIndex === mImages.length - 1) {
+			mCurrentIndex = 0;
+		} else {
+			mCurrentIndex ++;
+		}
+	} else {
+		if (mCurrentIndex === 0) {
+			mCurrentIndex = mImages.length - 1;
+		} else {
+			mCurrentIndex --;
+		}
+	}
+	document.getElementById("photo").src = mImages[mCurrentIndex].imgPath;
+	document.getElementById("imageLocation").innerText = "Location: " + mImages[mCurrentIndex].imgLocation;
+	document.getElementById("imageDesc").innerText = "Description: " + mImages[mCurrentIndex].description;
+	document.getElementById("imageDate").innerText = "Date: " + mImages[mCurrentIndex].date;
+
+
+
+console.log('swap photo');
 }
 
 // Counter for the mImages array
@@ -47,7 +67,28 @@ var mCurrentIndex = 0;
 var mRequest = new XMLHttpRequest();
 
 // Array holding GalleryImage objects (see below).
-var mImages = [];
+var mImages;
+let param = getQueryVariable("json");
+if (param) {
+	mRequest.open("GET","./" + param,false);
+	mRequest.send();
+	if (mRequest.status === 200) {
+		mImages = JSON.parse(mRequest.responseText).images;
+	}else {
+		mRequest.open("GET","./images.json",false);
+		mRequest.send();
+		mImages = JSON.parse(mRequest.responseText).images;
+	}
+}else {
+	mRequest.open("GET","./images.json",false);
+	mRequest.send();
+	mImages = JSON.parse(mRequest.responseText).images;
+}
+
+document.getElementById("photo").src = mImages[mCurrentIndex].imgPath;
+document.getElementById("imageLocation").innerText = "Location: " + mImages[mCurrentIndex].imgLocation;
+document.getElementById("imageDesc").innerText = "Description: " + mImages[mCurrentIndex].description;
+document.getElementById("imageDate").innerText = "Date: " + mImages[mCurrentIndex].date;
 
 // Holds the retrived JSON information
 var mJson;
@@ -66,23 +107,46 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 	}
 }
 
+let moreIndicator = document.getElementById("moreIndicatorButton");
+moreIndicator.onclick = () => {
+	if (moreIndicator.classList.contains("rot90")) {
+		moreIndicator.classList.remove("rot90");
+		moreIndicator.classList.add("rot270");
+		$("#imageDetail").fadeToggle();
+	}else {
+		moreIndicator.classList.remove("rot270");
+		moreIndicator.classList.add("rot90");
+		$("#imageDetail").fadeToggle();
+	}
+};
+
+$("#prevPhoto").click(() => {
+	swapPhoto(false);
+});
+$("#nextPhoto").click(() => {
+	swapPhoto(true);
+});
+
 $(document).ready( function() {
-	
+
 	// This initially hides the photos' metadata information
 	$('.details').eq(0).hide();
-	
+
 });
 
 window.addEventListener('load', function() {
-	
+
 	console.log('window loaded');
 
 }, false);
 
-function GalleryImage() {
-	//implement me as an object to hold the following data about an image:
-	//1. location where photo was taken
-	//2. description of photo
-	//3. the date when the photo was taken
-	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+function getQueryVariable(variable)
+{
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if(pair[0] == variable){return pair[1];}
+	}
+	return(false);
 }
