@@ -1,27 +1,27 @@
 {
     "images": [
         {
-            "imgPath": "http://placehold.it/518x389?text=index+0",
-            "imgLocation": "First image (index 0)",
-            "description": "This is the 1st image in the set",
+            "imgPath": "img/mypic/maxmage.PNG",
+            "imgLocation": "from The Arceous Mines",
+            "description": "This is a Mager of the highest Quality",
             "date": "01/01/2016"
         },
         {
-            "imgPath": "http://placehold.it/518x389?text=index+1",
-            "imgLocation": "Second image (index 1)",
-            "description": "This is the 2nd image in the set",
+            "imgPath": "img/mypic/maxrange.PNG",
+            "imgLocation": "Archer from the Chambers of Xeric",
+            "description": "Ranger with the Highest DPS",
             "date": "02/01/2016"
         },
         {
-            "imgPath": "http://placehold.it/518x389?text=index+2",
-            "imgLocation": "Third image (index 2)",
-            "description": "This is the 3rd image in the set",
+            "imgPath": "img/mypic/maxmelee.PNG",
+            "imgLocation": "Leader of the Warriors Guild",
+            "description": "Deals Heavy hits of damage up close",
             "date": "03/01/2016"
         },
     {
-      "imgPath": "http://placehold.it/518x389?text=index+3",
-      "imgLocation": "Fourth image (index 3)",
-      "description": "This is the 4th image in the set",
+      "imgPath": "img/mypic/noob.PNG",
+      "imgLocation": "just got to the island!",
+      "description": "must be a new guy",
       "date": "04/01/2016"
     }
   ]
